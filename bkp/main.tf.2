@@ -1,0 +1,26 @@
+provider "aws" {
+  region  = "sa-east-1"
+  version = "~> 2.0"
+}
+
+resource "aws_instance" "web" {
+    
+    count = 2 
+    
+    ami = "ami-0a82087acf98dc4ac"
+ 
+    instance_type = "t2.micro"
+
+    key_name = "Web_SP"
+
+    associate_public_ip_address = true
+  
+}
+
+terraform {
+  backend "s3" {
+    bucket = "476091327772-artefatos02"
+    key    = "terraform-lab.tfstate"
+    region = "sa-east-1"
+  }
+}
